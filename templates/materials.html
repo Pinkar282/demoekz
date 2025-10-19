@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Материалы</h2>
+<form method="POST" action="{{ url_for('add_material') }}" class="entity-form">
+  <label>Тип <input name="type"></label>
+  <label>Наименование <input name="name"></label>
+  <label>Поставщики <input name="suppliers"></label>
+  <label>Количество в упаковке <input name="qty_in_pack"></label>
+  <label>Ед.измерения (КГ/ЛИТРЫ) <input name="unit"></label>
+  <label>Описание <input name="description"></label>
+  <label>Изображение (имя файла в static/images/materials) <input name="image" value="placeholder.png"></label>
+  <label>Стоимость <input name="price" type="number" step="0.01" value="0"></label>
+  <label>Кол-во на складе <input name="stock_qty" type="number" step="0.01" value="0"></label>
+  <button type="submit">Добавить материал</button>
+</form>
+
+<table class="entity-table">
+<thead><tr>
+<th>Тип</th><th>Наименование</th><th>Поставщики</th><th>Кол-во в уп.</th><th>Ед.</th>
+<th>Описание</th><th>Изображение</th><th>Стоимость</th><th>На складе</th><th>Мин.</th><th>История</th>
+</tr></thead>
+<tbody>
+{% for m in materials %}
+<tr>
+<td>{{ m.type }}</td><td>{{ m.name }}</td><td>{{ m.suppliers }}</td><td>{{ m.qty_in_pack }}</td><td>{{ m.unit }}</td>
+<td>{{ m.description }}</td>
+<td><img src="{{ url_for('static', filename='images/materials/' + (m.image or 'placeholder.png')) }}" class="thumb"></td>
+<td>{{ m.price }}</td><td>{{ m.stock_qty }}</td><td>{{ m.min_qty }}</td><td>{{ m.history }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

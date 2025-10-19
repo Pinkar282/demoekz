@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Сотрудники</h2>
+<form method="POST" action="{{ url_for('add_employee') }}" class="entity-form">
+  <label>ФИО <input name="fio"></label>
+  <label>Дата рождения <input name="birthdate" type="date"></label>
+  <label>Паспортные данные <input name="passport"></label>
+  <label>Банковские реквизиты <input name="bank"></label>
+  <label>Наличие семьи (true/false) <input name="has_family"></label>
+  <label>Состояние здоровья <select name="health"><option>Здоров</option><option>Не здоров</option></select></label>
+  <button type="submit">Добавить сотрудника</button>
+</form>
+
+<table class="entity-table">
+<thead><tr><th>ФИО</th><th>ДР</th><th>Паспорт</th><th>Банк</th><th>Семья</th><th>Здоровье</th></tr></thead>
+<tbody>
+{% for e in employees %}
+<tr>
+<td>{{ e.fio }}</td><td>{{ e.birthdate }}</td><td>{{ e.passport }}</td><td>{{ e.bank }}</td><td>{{ e.has_family }}</td><td>{{ e.health }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

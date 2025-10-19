@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Партнёры</h2>
+<form method="POST" action="{{ url_for('add_partner') }}" class="entity-form">
+  <label>Тип <input name="type" required></label>
+  <label>Наименование компании <input name="name" required></label>
+  <label>Юридический адрес <input name="address"></label>
+  <label>ИНН <input name="inn"></label>
+  <label>ФИО директора <input name="director"></label>
+  <label>Телефон <input name="phone"></label>
+  <label>Email <input name="email"></label>
+  <label>Логотип (имя файла в static/images/partners) <input name="logo" value="logo.png"></label>
+  <label>Рейтинг <input name="rating" type="number" step="0.1" value="0"></label>
+  <label>Места продаж <input name="sales_places"></label>
+  <label>История реализации <input name="sales_history"></label>
+  <button type="submit">Добавить партнёра</button>
+</form>
+
+<table class="entity-table">
+  <thead>
+    <tr>
+      <th>Тип</th><th>Компания</th><th>Адрес</th><th>ИНН</th><th>Директор</th>
+      <th>Телефон</th><th>Email</th><th>Логотип</th><th>Рейтинг</th>
+      <th>Места продаж</th><th>История</th><th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in partners %}
+    <tr>
+      <td>{{ p.type }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.address }}</td>
+      <td>{{ p.inn }}</td>
+      <td>{{ p.director }}</td>
+      <td>{{ p.phone }}</td>
+      <td>{{ p.email }}</td>
+      <td>
+        <img src="{{ url_for('static', filename='images/partners/' + (p.logo or 'logo.png')) }}" alt="logo" class="thumb">
+      </td>
+      <td>{{ p.rating }}</td>
+      <td>{{ p.sales_places }}</td>
+      <td>{{ p.sales_history }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('change_partner_rating', partner_id=p.id) }}">
+          <input name="rating" placeholder="Новый рейтинг" step="0.1" type="number">
+          <input name="reason" placeholder="Комментарий">
+          <button type="submit">Изменить рейтинг</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

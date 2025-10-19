@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Продукция</h2>
+<form method="POST" action="{{ url_for('add_product') }}" class="entity-form">
+  <label>Артикул <input name="article"></label>
+  <label>Тип <input name="type"></label>
+  <label>Наименование <input name="name"></label>
+  <label>Описание <input name="description"></label>
+  <label>Изображение <input name="image" value="placeholder.png"></label>
+  <label>Мин. стоимость для партнёра <input name="min_price" type="number" step="0.01" value="0"></label>
+  <label>Размер упаковки (ДxШxВ) <input name="size"></label>
+  <label>Вес без упаковки <input name="weight_net"></label>
+  <label>Вес с упаковкой <input name="weight_gross"></label>
+  <label>Сертификат (имя файла) <input name="certificate"></label>
+  <label>Номер стандарта <input name="standard_no"></label>
+  <label>Время изготовления <input name="time_to_make"></label>
+  <label>Себестоимость <input name="cost_price"></label>
+  <label>Номер цеха <input name="workshop_no"></label>
+  <label>Число человек в производстве <input name="team_count"></label>
+  <label>Необходимые материалы <input name="materials"></label>
+  <button type="submit">Добавить продукцию</button>
+</form>
+
+<table class="entity-table">
+<thead>
+<tr><th>Артикул</th><th>Тип</th><th>Наименование</th><th>Описание</th><th>Изображение</th><th>Мин. цена</th><th>Размер</th><th>Вес(нет/гр)</th><th>Сертификат</th><th>Стандарт</th><th>История цен</th><th>Данные производства</th></tr>
+</thead>
+<tbody>
+{% for p in products %}
+<tr>
+<td>{{ p.article }}</td><td>{{ p.type }}</td><td>{{ p.name }}</td><td>{{ p.description }}</td>
+<td><img src="{{ url_for('static', filename='images/products/' + (p.image or 'placeholder.png')) }}" class="thumb"></td>
+<td>{{ p.min_price }}</td><td>{{ p.size }}</td><td>{{ p.weight_net }}/{{ p.weight_gross }}</td>
+<td>{{ p.certificate }}</td><td>{{ p.standard_no }}</td><td>{{ p.price_history }}</td>
+<td>Цех {{ p.workshop_no }} / {{ p.team_count }} чел.</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

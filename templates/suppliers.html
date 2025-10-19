@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Поставщики</h2>
+<form method="POST" action="{{ url_for('add_supplier') }}" class="entity-form">
+  <label>Тип <input name="type"></label>
+  <label>Наименование <input name="name"></label>
+  <label>ИНН <input name="inn"></label>
+  <label>История поставок <input name="supply_history"></label>
+  <button type="submit">Добавить поставщика</button>
+</form>
+
+<table class="entity-table">
+<thead><tr><th>Тип</th><th>Наименование</th><th>ИНН</th><th>История</th></tr></thead>
+<tbody>
+{% for s in suppliers %}
+<tr>
+<td>{{ s.type }}</td><td>{{ s.name }}</td><td>{{ s.inn }}</td><td>{{ s.supply_history }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

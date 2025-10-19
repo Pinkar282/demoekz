@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Кадры</h2>
+<form method="POST" action="{{ url_for('add_hr') }}" class="entity-form">
+  <label>ФИО <input name="fio"></label>
+  <label>Доступ (true/false) <input name="access" value="false"></label>
+  <button type="submit">Добавить</button>
+</form>
+
+<table class="entity-table">
+<thead><tr><th>ФИО</th><th>Доступ</th></tr></thead>
+<tbody>
+{% for r in hr %}
+<tr><td>{{ r.fio }}</td><td>{{ r.access }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title or "Компания Комфорт" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-wrap">
+      <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="Логотип" class="logo">
+      <div class="brand">
+        <h1>Компания "Комфорт"</h1>
+        <p class="tag">Продажа мебели — учебный проект</p>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="{{ url_for('index') }}">Главная</a>
+      <a href="{{ url_for('partners_page') }}">Партнёры</a>
+      <a href="{{ url_for('suppliers_page') }}">Поставщики</a>
+      <a href="{{ url_for('materials_page') }}">Материалы</a>
+      <a href="{{ url_for('products_page') }}">Продукция</a>
+      <a href="{{ url_for('orders_page') }}">Заявки</a>
+      <a href="{{ url_for('employees_page') }}">Сотрудники</a>
+      <a href="{{ url_for('hr_page') }}">Кадры</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for cat, msg in messages %}
+            <div class="flash {{cat}}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <p>© {{ datetime.utcnow().year }} Компания "Комфорт" — демо проект</p>
+  </footer>
+</body>
+</html>

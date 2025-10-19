@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Заявки</h2>
+<form method="POST" action="{{ url_for('add_order') }}" class="entity-form">
+  <label>Партнёр (имя) <input name="partner"></label>
+  <label>Товары (описание) <input name="items"></label>
+  <button type="submit">Создать заявку</button>
+</form>
+
+<table class="entity-table">
+<thead><tr><th>ID</th><th>Партнёр</th><th>Товары</th><th>Статус</th><th>Создано</th><th>Срок предоплаты</th><th>Действия</th></tr></thead>
+<tbody>
+{% for o in orders %}
+<tr>
+<td>{{ o.id }}</td><td>{{ o.partner }}</td><td>{{ o.items }}</td><td>{{ o.status }}</td><td>{{ o.created }}</td><td>{{ o.prepay_due }}</td>
+<td>
+  {% if o.status != 'Товар оплачен' and o.status != 'Заказ отменен' %}
+  <form style="display:inline" method="POST" action="{{ url_for('pay_order', order_id=o.id) }}"><button type="submit">Оплатить</button></form>
+  <form style="display:inline" method="POST" action="{{ url_for('cancel_order', order_id=o.id) }}"><button type="submit">Отменить</button></form>
+  {% endif %}
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

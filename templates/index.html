@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Добро пожаловать</h2>
+  <p>Главная страница системы управления — демо версия без базы данных (все списки в памяти).</p>
+  <section class="quick-links">
+    <a class="card" href="{{ url_for('partners_page') }}">Партнёры</a>
+    <a class="card" href="{{ url_for('suppliers_page') }}">Поставщики</a>
+    <a class="card" href="{{ url_for('materials_page') }}">Материалы</a>
+    <a class="card" href="{{ url_for('products_page') }}">Продукция</a>
+    <a class="card" href="{{ url_for('orders_page') }}">Заявки</a>
+  </section>
+{% endblock %}
